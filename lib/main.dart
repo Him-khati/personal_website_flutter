@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:personal_website/pages/work_experience_widget.dart';
 import 'package:personal_website/scroll_home_screen_behaviour.dart';
 import 'package:personal_website/theme/theme.dart';
 import 'package:personal_website/utils/response_widget.dart';
-import 'package:personal_website/widgets/intro_widget.dart';
+import 'package:personal_website/pages/about_me_widget.dart';
+import 'package:personal_website/pages/intro_widget.dart';
 
 void main() {
   runApp(const MyApp());
@@ -53,9 +55,10 @@ class MyApp extends StatelessWidget {
   Widget _buildHomeScreenContent() {
     return PageView(
       scrollDirection: Axis.vertical,
-      children: [
+      children: const [
         IntroWidget(),
-        IntroWidget(),
+        AboutMeWidget(),
+        WorkExperienceWidget()
       ],
     );
   }

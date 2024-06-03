@@ -1,48 +1,25 @@
 
 import 'package:flutter/material.dart';
-import 'package:personal_website/widgets/circle_arc_widget.dart';
+import 'package:personal_website/widgets/rotating_arcs/circle_arc_widget.dart';
+import 'package:personal_website/widgets/infinite_animation.dart';
 import 'package:personal_website/widgets/rotating_arcs/arcs_data_generator.dart';
 
-class AnimatedRotatingCircleWidget extends StatefulWidget {
-
-  final int splitCircleInNumberOfArcs;
-  final List<Color> colors;
+class AnimatedRotatingCircleWidget extends StatelessWidget {
+  final List<ArcData> arcData;
 
   const AnimatedRotatingCircleWidget({
     super.key,
-    required this.splitCircleInNumberOfArcs,
-    required this.colors
+    required this.arcData
   });
 
   @override
-  State<AnimatedRotatingCircleWidget> createState() => _AnimatedRotatingCircleWidgetState();
-}
-
-class _AnimatedRotatingCircleWidgetState extends State<AnimatedRotatingCircleWidget> with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
-  List<ArcData> arcData = List.empty();
-
-  @override
-  void initState() {
-    super.initState();
-
-    arcData = generateArcData(
-      widget.splitCircleInNumberOfArcs,
-      widget.colors
-    );
-    _controller = AnimationController(vsync: this);
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: generateCircleArcWidgetFromArcData()
+    return InfiniteRotationAnimation(
+      duration: const Duration(seconds: 40),
+      child: Stack(
+          alignment: Alignment.center,
+          children: generateCircleArcWidgetFromArcData()
+      ),
     );
   }
 
@@ -55,6 +32,11 @@ class _AnimatedRotatingCircleWidgetState extends State<AnimatedRotatingCircleWid
             color: value.fillColor,
             startFromAngle: value.startFromAngle,
             drawTillAngle: value.drawTillAngle,
+            size: value.size ?? const Size(400, 400),
+            animateScale: value.scaleAnimate,
+            scaleMin: value.scaleMin,
+            scaleMax: value.scaleMax,
+            scaleAnimDuration: value.scaleAnimDuration,
           )
       );
     }
@@ -62,3 +44,4 @@ class _AnimatedRotatingCircleWidgetState extends State<AnimatedRotatingCircleWid
     return circleArcWidgets;
   }
 }
+

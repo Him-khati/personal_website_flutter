@@ -12,6 +12,7 @@ extension ColorSchemeExtensions on BuildContext {
   ThemeData lightTheme(BuildContext context) => ThemeData(
         useMaterial3: true,
         elevatedButtonTheme: getElevatedButtonThemeData(context),
+        visualDensity: VisualDensity.adaptivePlatformDensity,
         colorScheme: const ColorScheme(
           brightness: Brightness.light,
           //Background color for primary elements , like Raised button
@@ -39,6 +40,7 @@ extension ColorSchemeExtensions on BuildContext {
   /// Dark Theme
   ThemeData darkTheme(BuildContext context) => ThemeData(
         useMaterial3: true,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
         elevatedButtonTheme: getElevatedButtonThemeData(context),
         colorScheme: const ColorScheme(
           brightness: Brightness.dark,
@@ -63,6 +65,4 @@ extension ColorSchemeExtensions on BuildContext {
         ),
         textTheme: context.defaultTextTheme,
       );
-
-
 }

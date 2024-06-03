@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 extension TextThemeExtensions on BuildContext {
-
   TextTheme get textTheme => Theme.of(this).textTheme;
 
   /// Returns base text Theme
@@ -17,7 +16,10 @@ extension TextThemeExtensions on BuildContext {
         GoogleFonts.playfairDisplay(),
       );
 
-  TextTheme _buildTheme(BuildContext context, TextStyle textStyle) {
+  TextTheme _buildTheme(
+    BuildContext context,
+    TextStyle textStyle,
+  ) {
     //TODO set font size based on device's size
 
     return TextTheme(

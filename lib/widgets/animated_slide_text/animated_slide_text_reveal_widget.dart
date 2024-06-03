@@ -1,20 +1,20 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:personal_website/widgets/text_size_helper.dart';
 
-import 'rotating_arcs/animated_box_reveal_widget.dart';
+import 'animated_box_reveal_widget.dart';
 
 class AnimatedSlideTextRevealWidget extends StatefulWidget {
   final String text;
   final Color coverColor;
   final TextStyle? textStyle;
+  final Duration duration;
 
   const AnimatedSlideTextRevealWidget({
     super.key,
     required this.text,
     required this.coverColor,
     required this.textStyle,
+    this.duration = const Duration(seconds: 3)
   });
 
   @override
@@ -28,7 +28,7 @@ class _AnimatedSlideTextRevealWidgetState
 
   late AnimationController animationController = AnimationController(
     vsync: this,
-    duration: const Duration(milliseconds: 3000),
+    duration: widget.duration,
   )..forward();
 
   late Animation<RelativeRect> textSlideUpAnimation = RelativeRectTween(
@@ -42,10 +42,8 @@ class _AnimatedSlideTextRevealWidgetState
     ),
   ).animate(CurvedAnimation(
     parent: animationController,
-    curve: const Interval(0.7, 1.0,curve: Curves.easeIn),
+    curve: const Interval(0.7, 1.0, curve: Curves.easeIn),
   ));
-
-
 
   @override
   void initState() {
@@ -66,9 +64,12 @@ class _AnimatedSlideTextRevealWidgetState
         boxColor: Colors.blueGrey,
         surfaceColor: Theme.of(context).colorScheme.surface,
       ),
-      Text(
-        widget.text,
-        style: widget.textStyle,
+      PositionedTransition(
+        rect: textSlideUpAnimation,
+        child: Text(
+          widget.text,
+          style: widget.textStyle,
+        ),
       )
     ]);
   }

@@ -1,16 +1,33 @@
 import 'dart:math';
 import 'dart:ui';
 
+import 'package:flutter/cupertino.dart';
+
 class ArcData {
   double startFromAngle;
   double drawTillAngle;
   Color fillColor;
+  Size? size;
+  bool scaleAnimate;
+  Duration? scaleAnimDuration;
+  double? scaleMin;
+  double? scaleMax;
 
   ArcData({
     required this.startFromAngle,
     required this.drawTillAngle,
     required this.fillColor,
+    this.size,
+    this.scaleAnimate = false,
+    this.scaleMin,
+    this.scaleMax,
+    this.scaleAnimDuration
   });
+
+  @override
+  String toString() {
+    return "startAngle : $startFromAngle, drawTillAngle : $drawTillAngle, color : $fillColor";
+  }
 }
 
 List<ArcData> generateArcData(
@@ -66,6 +83,7 @@ List<double> divide360IntoUnequalParts(int parts) {
   partSizes.shuffle(); // Shuffle to ensure the parts are in random order
 
   return partSizes.map((e) {
-    return e / 180;
+    print(e);
+    return e / 45;
   }).toList();
 }

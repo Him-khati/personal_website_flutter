@@ -12,6 +12,10 @@ import 'package:flutter/widgets.dart';
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
+  /// File path: assets/images/avatar_person.png
+  AssetGenImage get avatarPerson =>
+      const AssetGenImage('assets/images/avatar_person.png');
+
   /// File path: assets/images/ic_github.svg
   String get icGithub => 'assets/images/ic_github.svg';
 
@@ -23,8 +27,18 @@ class $AssetsImagesGen {
   AssetGenImage get icStackOverflow64x =>
       const AssetGenImage('assets/images/ic_stack_overflow_64x.png');
 
+  /// File path: assets/images/image_himanshu.png
+  AssetGenImage get imageHimanshu =>
+      const AssetGenImage('assets/images/image_himanshu.png');
+
   /// List of all assets
-  List<dynamic> get values => [icGithub, icLinkedIn64x, icStackOverflow64x];
+  List<dynamic> get values => [
+        avatarPerson,
+        icGithub,
+        icLinkedIn64x,
+        icStackOverflow64x,
+        imageHimanshu
+      ];
 }
 
 class Assets {

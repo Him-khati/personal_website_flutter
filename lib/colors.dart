@@ -28,6 +28,33 @@ final Color kRed100 = Colors.red.shade100;
 final Color kIndigo100 = Colors.indigo.shade100;
 const Color kBabyPink = Color(0xFFFD9E9E);
 
+// Original Pink Color
+const Color pink = Color(0xFFFFB2B2);
+
+// Lighter Pink
+const Color lighterPink = Color(0xFFFFD5D5);
+
+// Darker Pink
+const Color darkerPink = Color(0xFFFF8F8F);
+
+// More Saturated Pink
+const Color moreSaturatedPink = Color(0xFFFF8989);
+
+// Less Saturated Pink
+const Color lessSaturatedPink = Color(0xFFFFC6C6);
+
+// More Blue Pink
+const Color moreBluePink = Color(0xFFFFB2D4);
+
+// More Green Pink
+const Color moreGreenPink = Color(0xFFFFB2B8);
+
+// Duller Pink
+const Color dullerPink = Color(0xFFEBA9A9);
+
+// Brighter Pink
+const Color brighterPink = Color(0xFFFFBFC0);
+
 List<Color> kMenuColors = [
   kSecondary,
   kGreen100,
