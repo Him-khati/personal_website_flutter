@@ -31,46 +31,48 @@ class _AnimatedSlideTextRevealWidgetState
     duration: widget.duration,
   )..forward();
 
-  late Animation<RelativeRect> textSlideUpAnimation = RelativeRectTween(
-    begin: RelativeRect.fromSize(
-      Rect.fromLTWH(0, textSize.height, textSize.width, textSize.height),
-      Size(textSize.width, textSize.height),
-    ),
-    end: RelativeRect.fromSize(
-      Rect.fromLTWH(0, 0, textSize.width, textSize.height),
-      Size(textSize.width, textSize.height),
-    ),
-  ).animate(CurvedAnimation(
-    parent: animationController,
-    curve: const Interval(0.7, 1.0, curve: Curves.easeIn),
-  ));
+  Animation<double> get pos => Tween<double>(
+    begin: textSize.height,
+    end: 0
+  ).animate(
+    CurvedAnimation(parent: animationController, curve: Interval(0.7, 1.0,curve: Curves.easeIn))
+  );
 
   @override
   void initState() {
     super.initState();
-    textSize = computeTextWidgetSize(
-      widget.text,
-      widget.textStyle,
-    );
+
   }
 
   @override
   Widget build(BuildContext context) {
-    return Stack(children: [
-      AnimatedBoxRevealAnimationWidget(
-        animationController: animationController,
-        height: textSize.height,
-        width: textSize.width,
-        boxColor: Colors.blueGrey,
-        surfaceColor: Theme.of(context).colorScheme.surface,
-      ),
-      PositionedTransition(
-        rect: textSlideUpAnimation,
-        child: Text(
-          widget.text,
-          style: widget.textStyle,
+    textSize = computeTextWidgetSize(
+      context,
+      widget.text,
+      widget.textStyle,
+    );
+
+    return SizedBox(
+      height: textSize.height,
+      width: textSize.width + 25,
+      child: Stack(children: [
+        AnimatedBoxRevealAnimationWidget(
+          animationController: animationController,
+          height: textSize.height,
+          width: textSize.width + 40,
+          boxColor: Colors.black87,
+          surfaceColor: Theme.of(context).colorScheme.surface,
         ),
-      )
-    ]);
+
+        AnimatedBuilder(animation: animationController, builder: (c,v){
+          return Positioned(
+              top: pos.value,
+              child: Text(
+            widget.text,
+            style: widget.textStyle,
+          ));
+        })
+      ]),
+    );
   }
 }

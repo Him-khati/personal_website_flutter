@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:personal_website/theme/text_themes.dart';
 import 'package:personal_website/theme/theme.dart';
-import 'package:personal_website/widgets/master_detail/master_detail_data.dart';
+import 'package:personal_website/widgets/master_detail/master_detail_widget.dart';
 import 'package:personal_website/widgets/master_detail/master_list_item_clicked.dart';
 
 class MasterItemWidget extends StatefulWidget {
@@ -30,21 +30,23 @@ class _MasterItemWidgetState extends State<MasterItemWidget> {
   Widget build(BuildContext context) {
     bool highlightItem = widget.itemSelected || itemHovered;
 
-
     return MouseRegion(
       child: GestureDetector(
         onTap: (){
           widget.itemClickedCallback(widget.data);
         },
-        child: Container(
+        child: AnimatedContainer(
           height: widget.itemHeight,
+          duration: const Duration(milliseconds: 400),
           color: highlightItem ? context.colors.primary.withOpacity(
             0.2
           ) : Colors.transparent,
-          child: Text(
-            widget.data.title,
-            style: context.textTheme.titleMedium?.copyWith(
-              color: highlightItem ? context.colors.primary : null
+          child: Center(
+            child: Text(
+              widget.data.title,
+              style: context.textTheme.titleMedium?.copyWith(
+                color: highlightItem ? context.colors.primary : null
+              ),
             ),
           ),
         ),

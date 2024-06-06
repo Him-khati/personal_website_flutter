@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:auto_height_grid_view/auto_height_grid_view.dart';
 import 'package:daily_utils/daily_utils.dart';
 import 'package:flutter/material.dart';
@@ -15,10 +13,10 @@ class BulletPointSectionWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return AutoHeightGridView(
       itemCount: points.length,
-      builder: (context,index){
+      mainAxisSpacing: 0,
+      builder: (context, index) {
         return BulletPointWidget(points[index]);
       },
     );
@@ -28,28 +26,37 @@ class BulletPointSectionWidget extends StatelessWidget {
 class BulletPointWidget extends StatelessWidget {
   final String text;
 
-  const BulletPointWidget(this.text, {super.key});
+  const BulletPointWidget(
+    this.text, {
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         CustomPaint(
           painter: BulletPainter(context.colors.primary),
-          child: const SizedBox(height: 10, width: 10),
+          child: const SizedBox(height: 8, width: 8),
         ),
         const HorizonatalGapWidget(8),
         Text(text)
       ],
     );
   }
+
+  static List<Widget> fromList(List<String> responsibilities) =>
+      responsibilities.map((e) {
+        return BulletPointWidget(e);
+      }).toList();
 }
 
 class BulletPainter extends CustomPainter {
   final Color color;
 
-  BulletPainter(this.color,);
+  BulletPainter(
+    this.color,
+  );
 
   late Paint bulletPaint = Paint()
     ..style = PaintingStyle.stroke
@@ -58,21 +65,21 @@ class BulletPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    final path = createPath(3, 9);
+    final path = createPath(size);
     canvas.drawPath(path, bulletPaint);
   }
 
-  Path createPath(int sides, double radius) {
-    var path = Path();
-    var angle = (pi * 2) / sides;
-    path.moveTo(radius * cos(0.0), radius * sin(0.0));
-    for (int i = 1; i <= sides; i++) {
-      double x = radius * cos(angle * i);
-      double y = radius * sin(angle * i);
-      path.lineTo(x, y);
-    }
-    path.close();
-    return path;
+  Path createPath(Size size) {
+    return Path()
+      ..lineTo(
+        size.width,
+        size.height / 2,
+      )
+      ..lineTo(
+        0,
+        size.height,
+      )
+      ..close();
   }
 
   @override

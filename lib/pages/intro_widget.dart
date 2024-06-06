@@ -9,6 +9,7 @@ import 'package:personal_website/theme/text_themes.dart';
 import 'package:personal_website/theme/theme.dart';
 import 'package:personal_website/widgets/rotating_arcs/animated_rotating_circles_widget.dart';
 import 'package:personal_website/widgets/rotating_arcs/arcs_data_generator.dart';
+import 'package:personal_website/widgets/scroll_indicator/scroll_indicator_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../gen/assets.gen.dart';
@@ -27,9 +28,10 @@ class IntroWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const AnimatedSlideTextRevealWidget(
+              AnimatedSlideTextRevealWidget(
                 text: "Hi, I am",
-                textStyle: TextStyle(fontSize: 42),
+                textStyle: context.highlightTextTheme.headlineLarge
+                    ?.copyWith(fontSize: 42),
                 coverColor: kDeepBlack,
               ),
               const VerticalGap(2),
@@ -44,7 +46,7 @@ class IntroWidget extends StatelessWidget {
                 text:
                     "Android & Flutter dev with more than 6 years of experience",
                 textStyle: context.highlightTextTheme.headlineLarge
-                    ?.copyWith(fontSize: 22),
+                    ?.copyWith(fontSize: 24),
                 coverColor: kDeepBlack,
               ),
               const VerticalGap(16),
@@ -108,6 +110,7 @@ class IntroWidget extends StatelessWidget {
                   )
                 ],
               ),
+
             ]),
         Stack(alignment: Alignment.topCenter,
           children: [
