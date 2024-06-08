@@ -14,7 +14,7 @@ class AnimatedSlideTextRevealWidget extends StatefulWidget {
     required this.text,
     required this.coverColor,
     required this.textStyle,
-    this.duration = const Duration(seconds: 3)
+    this.duration = const Duration(seconds: 3),
   });
 
   @override
@@ -31,17 +31,14 @@ class _AnimatedSlideTextRevealWidgetState
     duration: widget.duration,
   )..forward();
 
-  Animation<double> get pos => Tween<double>(
-    begin: textSize.height,
-    end: 0
-  ).animate(
-    CurvedAnimation(parent: animationController, curve: Interval(0.7, 1.0,curve: Curves.easeIn))
-  );
+  Animation<double> get pos =>
+      Tween<double>(begin: textSize.height, end: 0).animate(CurvedAnimation(
+          parent: animationController,
+          curve: Interval(0.7, 1.0, curve: Curves.easeIn)));
 
   @override
   void initState() {
     super.initState();
-
   }
 
   @override
@@ -54,7 +51,7 @@ class _AnimatedSlideTextRevealWidgetState
 
     return SizedBox(
       height: textSize.height,
-      width: textSize.width + 25,
+      width: textSize.width + 40,
       child: Stack(children: [
         AnimatedBoxRevealAnimationWidget(
           animationController: animationController,
@@ -63,15 +60,18 @@ class _AnimatedSlideTextRevealWidgetState
           boxColor: Colors.black87,
           surfaceColor: Theme.of(context).colorScheme.surface,
         ),
-
-        AnimatedBuilder(animation: animationController, builder: (c,v){
-          return Positioned(
-              top: pos.value,
-              child: Text(
-            widget.text,
-            style: widget.textStyle,
-          ));
-        })
+        AnimatedBuilder(
+            animation: animationController,
+            builder: (c, v) {
+              return Positioned(
+                  top: pos.value,
+                  child: Text(
+                    widget.text,
+                    softWrap: true,
+                    maxLines: 3,
+                    style: widget.textStyle,
+                  ));
+            })
       ]),
     );
   }

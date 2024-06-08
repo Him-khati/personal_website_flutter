@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:personal_website/utils/screen_size_util.dart';
 
 extension TextThemeExtensions on BuildContext {
   TextTheme get textTheme => Theme.of(this).textTheme;
@@ -20,67 +21,69 @@ extension TextThemeExtensions on BuildContext {
     BuildContext context,
     TextStyle textStyle,
   ) {
-    //TODO set font size based on device's size
+    bool isLargeScreen = ScreenSizeUtil.isLargeScreen(context);
+    bool isMediumScreen = ScreenSizeUtil.isMediumScreen(context);
+    bool isSmallScreen = ScreenSizeUtil.isSmallScreen(context);
 
     return TextTheme(
       displayLarge: textStyle.copyWith(
-        fontSize: 57,
+        fontSize: isLargeScreen ? 57 : (isMediumScreen ? 48 : 40),
         fontWeight: FontWeight.normal,
       ),
       displayMedium: textStyle.copyWith(
-        fontSize: 45,
+        fontSize: isLargeScreen ? 45 : (isMediumScreen ? 38 : 32),
         fontWeight: FontWeight.normal,
       ),
       displaySmall: textStyle.copyWith(
-        fontSize: 36,
+        fontSize: isLargeScreen ? 36 : (isMediumScreen ? 30 : 28),
         fontWeight: FontWeight.normal,
       ),
       headlineLarge: textStyle.copyWith(
-        fontSize: 32,
+        fontSize: isLargeScreen ? 42 : (isMediumScreen ? 35 : 28),
         fontWeight: FontWeight.w700,
       ),
       headlineMedium: textStyle.copyWith(
-        fontSize: 28,
+        fontSize: isLargeScreen ? 28 : (isMediumScreen ? 24 : 22),
         fontWeight: FontWeight.w700,
       ),
       headlineSmall: textStyle.copyWith(
-        fontSize: 24,
+        fontSize: isLargeScreen ? 24 : (isMediumScreen ? 20 : 18),
         fontWeight: FontWeight.w500,
       ),
       titleLarge: textStyle.copyWith(
-        fontSize: 22,
+        fontSize: isLargeScreen ? 22 : (isMediumScreen ? 20 : 18),
         fontWeight: FontWeight.w700,
       ),
       titleMedium: textStyle.copyWith(
-        fontSize: 16,
+        fontSize: isLargeScreen ? 16 : (isMediumScreen ? 15 : 14),
         fontWeight: FontWeight.w600,
       ),
       titleSmall: textStyle.copyWith(
-        fontSize: 14,
+        fontSize: isLargeScreen ? 14 : (isMediumScreen ? 13 : 12),
         fontWeight: FontWeight.w400,
       ),
       bodyLarge: textStyle.copyWith(
-        fontSize: 16,
+        fontSize: isLargeScreen ? 16 : (isMediumScreen ? 15 : 14),
         fontWeight: FontWeight.w500,
       ),
       bodyMedium: textStyle.copyWith(
-        fontSize: 14,
+        fontSize: isLargeScreen ? 14 : (isMediumScreen ? 13 : 12),
         fontWeight: FontWeight.normal,
       ),
       bodySmall: textStyle.copyWith(
-        fontSize: 12,
+        fontSize: isLargeScreen ? 12 : (isMediumScreen ? 11 : 10),
         fontWeight: FontWeight.normal,
       ),
       labelLarge: textStyle.copyWith(
-        fontSize: 16,
+        fontSize: isLargeScreen ? 16 : (isMediumScreen ? 15 : 14),
         fontWeight: FontWeight.w600,
       ),
       labelMedium: textStyle.copyWith(
-        fontSize: 14,
+        fontSize: isLargeScreen ? 14 : (isMediumScreen ? 13 : 12),
         fontWeight: FontWeight.w600,
       ),
       labelSmall: textStyle.copyWith(
-        fontSize: 11,
+        fontSize: isLargeScreen ? 11 : (isMediumScreen ? 10 : 9),
         fontWeight: FontWeight.normal,
       ),
     );

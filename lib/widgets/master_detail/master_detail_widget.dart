@@ -1,6 +1,5 @@
 import 'package:daily_utils/daily_utils.dart';
 import 'package:flutter/material.dart';
-import 'package:personal_website/widgets/animated_fade_in_widget.dart';
 import 'package:personal_website/widgets/master_detail/master_list_widget.dart';
 
 class MasterDetailsWidget extends StatefulWidget {
@@ -15,24 +14,17 @@ class MasterDetailsWidget extends StatefulWidget {
   State<MasterDetailsWidget> createState() => _MasterDetailsWidgetState();
 }
 
-class _MasterDetailsWidgetState extends State<MasterDetailsWidget>
-    with SingleTickerProviderStateMixin {
-  late AnimationController controller;
+class _MasterDetailsWidgetState extends State<MasterDetailsWidget> {
   MasterDetailData? selectedMasterItem;
 
   @override
   void initState() {
     super.initState();
-    controller =
-        AnimationController(vsync: this, duration: const Duration(seconds: 4))
-          ..forward();
     selectedMasterItem ??= widget.masterDetailData.firstOrNull;
   }
 
   @override
   Widget build(BuildContext context) {
-    print("object printed above");
-
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -40,25 +32,23 @@ class _MasterDetailsWidgetState extends State<MasterDetailsWidget>
             list: widget.masterDetailData,
             preSelectedItem: selectedMasterItem,
             itemChangedCallback: (e) {
-              controller
-                ..reset()
-                ..forward();
-
               selectedMasterItem = e;
               setState(() {});
-
-              print("object printed");
             }),
         const HorizonatalGapWidget(40),
-        selectedMasterItem?.widget ?? const SizedBox.shrink()
+        AnimatedSwitcher(
+          duration: const Duration(milliseconds: 300),
+          transitionBuilder: (Widget child, Animation<double> animation) {
+            return FadeTransition(opacity: animation, child: child);
+          },
+          child: SizedBox(
+              height: 400,
+              width: 1200,
+              key: selectedMasterItem?.widget.key,
+              child: selectedMasterItem?.widget ?? const SizedBox()),
+        ),
       ],
     );
-  }
-
-  @override
-  void dispose() {
-    controller.dispose();
-    super.dispose();
   }
 }
 

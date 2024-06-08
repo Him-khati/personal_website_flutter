@@ -33,7 +33,7 @@ class _HomeWidgetState extends State<HomeWidget>
   // Flags
   bool showAppBar = true;
   bool areWeOnFirstPage = true;
-  int currentPageIndex = 0;
+  double currentPageIndex = 0.0;
 
   @override
   void initState() {
@@ -149,9 +149,9 @@ class _HomeWidgetState extends State<HomeWidget>
 
   void _scrollListener() {
     final lastScrollPosition = currentPageIndex;
-    final newScrollPosition = _pageController.page!.toInt();
+    final newScrollPosition = _pageController.page!;
     currentPageIndex = newScrollPosition;
-    areWeOnFirstPage = newScrollPosition == 0;
+    areWeOnFirstPage = newScrollPosition == 0.0;
 
     if (newScrollPosition > lastScrollPosition) {
       // Scroll Down

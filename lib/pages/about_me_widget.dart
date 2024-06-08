@@ -23,40 +23,40 @@ class AboutMeWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(
-        horizontal: ScreenSizeUtil.getScreenWidth(context) * 0.2,
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          AnimatedSlideTextRevealWidget(
-            text: "About me",
-            coverColor: kDeepBlack,
-            textStyle: context.highlightTextTheme.displayMedium,
-            duration: const Duration(milliseconds: 1500),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        AnimatedSlideTextRevealWidget(
+          text: "About me",
+          coverColor: kDeepBlack,
+          textStyle: context.highlightTextTheme.displayMedium,
+          duration: const Duration(milliseconds: 1500),
+        ),
+        const VerticalGap(40),
+        Text(
+          "My name is Himanshu Khati. I am software engineer developing native Android, apps for more than 6 Years. I am passionate about mobile and I'm always seeking to grow my skills and work with teams who share the same passion. Currently I am exploring Flutter, iOS, Kotlin Multiplatform, and Jetpack Compose. I am currently working @gigforce as Lead mobile developer Here are a few technologies I’ve worked with:",
+          style: context.textTheme.titleMedium?.copyWith(
+            fontWeight: FontWeight.normal
           ),
-          const VerticalGap(40),
-          Text(
-            "My name is Himanshu Khati. I am software engineer developing native Android, apps for more than 6 Years. I am passionate about mobile and I'm always seeking to grow my skills and work with teams who share the same passion. Currently I am exploring Flutter, iOS, Kotlin Multiplatform, and Jetpack Compose. I am currently working @gigforce as Lead mobile developer Here are a few technologies I’ve worked with:",
-            style: context.textTheme.bodyLarge,
+          textAlign: TextAlign.justify,
+        ),
+        SizedBox(
+          width: double.infinity,
+          height: 200,
+          child: BulletPointSectionWidget(
+            textStyle: context.textTheme.bodyLarge,
+            points: [
+              "Android",
+              "Flutter",
+              "Kotlin",
+              "Dart",
+              "Firebase",
+              "Android Jetpack",
+            ],
           ),
-          SizedBox(
-            width: double.infinity,
-            height: 200,
-            child: BulletPointSectionWidget(
-              points: [
-                "Android",
-                "Flutter",
-                "Kotlin",
-                "Firebase",
-                "Android Jetpack",
-              ],
-            ),
-          )
-        ],
-      ),
+        )
+      ],
     );
   }
 }

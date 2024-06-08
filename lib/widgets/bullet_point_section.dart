@@ -5,19 +5,22 @@ import 'package:personal_website/theme/theme.dart';
 
 class BulletPointSectionWidget extends StatelessWidget {
   final List<String> points;
+  final TextStyle? textStyle;
 
-  const BulletPointSectionWidget({
-    super.key,
-    required this.points,
-  });
+  const BulletPointSectionWidget(
+      {super.key, required this.points, this.textStyle});
 
   @override
   Widget build(BuildContext context) {
     return AutoHeightGridView(
       itemCount: points.length,
-      mainAxisSpacing: 0,
+      mainAxisSpacing: 5,
+      padding: const EdgeInsets.only(top: 10),
       builder: (context, index) {
-        return BulletPointWidget(points[index]);
+        return BulletPointWidget(
+          points[index],
+          textStyle: textStyle,
+        );
       },
     );
   }
@@ -25,9 +28,11 @@ class BulletPointSectionWidget extends StatelessWidget {
 
 class BulletPointWidget extends StatelessWidget {
   final String text;
+  final TextStyle? textStyle;
 
   const BulletPointWidget(
     this.text, {
+    this.textStyle,
     super.key,
   });
 
@@ -40,7 +45,13 @@ class BulletPointWidget extends StatelessWidget {
           child: const SizedBox(height: 8, width: 8),
         ),
         const HorizonatalGapWidget(8),
-        Text(text)
+        Flexible(
+          child: Text(
+            text,
+            softWrap: true,
+            style: textStyle,
+          ),
+        )
       ],
     );
   }

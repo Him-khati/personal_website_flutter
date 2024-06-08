@@ -42,10 +42,13 @@ class _MasterItemWidgetState extends State<MasterItemWidget> {
             0.2
           ) : Colors.transparent,
           child: Center(
-            child: Text(
-              widget.data.title,
-              style: context.textTheme.titleMedium?.copyWith(
-                color: highlightItem ? context.colors.primary : null
+            child: Flexible(
+              child: Text(
+                widget.data.title,
+                softWrap: true,
+                style: context.textTheme.titleMedium?.copyWith(
+                  color: highlightItem ? context.colors.primary : null
+                ),
               ),
             ),
           ),
