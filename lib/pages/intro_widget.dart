@@ -110,7 +110,7 @@ class IntroWidget extends StatelessWidget {
               ),
 
             ]),
-        // if (isLargeScreen) _createArcsAndPhotoAnimation()
+        if (isLargeScreen) _createArcsAndPhotoAnimation()
       ],
     );
   }

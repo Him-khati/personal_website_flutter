@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:personal_website/pages/about_me_widget.dart';
 import 'package:personal_website/pages/intro_widget.dart';
+import 'package:personal_website/pages/portfolio_widget.dart';
+import 'package:personal_website/pages/portfolio_widget_experimentak.dart';
 import 'package:personal_website/pages/work_experience_widget.dart';
 import 'package:personal_website/theme/theme.dart';
 import 'package:personal_website/utils/response_widget.dart';
@@ -18,6 +20,7 @@ class _HomeWidgetState extends State<HomeWidget>
   late IntroWidget introWidget = const IntroWidget();
   late AboutMeWidget aboutMeWidget = const AboutMeWidget();
   late WorkExperienceWidget workExperienceWidget = const WorkExperienceWidget();
+  late PortfolioWidget portfolioWidget = const PortfolioWidget();
 
   late final AnimationController _animationController = AnimationController(
     vsync: this,
@@ -88,9 +91,11 @@ class _HomeWidgetState extends State<HomeWidget>
         controller: _pageController,
         scrollDirection: Axis.vertical,
         children: [
+          portfolioWidget,
           introWidget,
           aboutMeWidget,
           workExperienceWidget,
+
         ],
       ),
       Align(

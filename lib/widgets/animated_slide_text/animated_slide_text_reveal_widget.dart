@@ -34,7 +34,7 @@ class _AnimatedSlideTextRevealWidgetState
   Animation<double> get pos =>
       Tween<double>(begin: textSize.height, end: 0).animate(CurvedAnimation(
           parent: animationController,
-          curve: Interval(0.7, 1.0, curve: Curves.easeIn)));
+          curve: const Interval(0.7, 1.0, curve: Curves.easeIn)));
 
   @override
   void initState() {
@@ -74,5 +74,11 @@ class _AnimatedSlideTextRevealWidgetState
             })
       ]),
     );
+  }
+
+  @override
+  void dispose() {
+    animationController.dispose();
+    super.dispose();
   }
 }

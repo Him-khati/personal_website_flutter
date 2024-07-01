@@ -12,6 +12,14 @@ import 'package:flutter/widgets.dart';
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
+  /// File path: assets/images/abstract_wallpaper_image.jpg
+  AssetGenImage get abstractWallpaperImage =>
+      const AssetGenImage('assets/images/abstract_wallpaper_image.jpg');
+
+  /// File path: assets/images/android_dd.jpeg
+  AssetGenImage get androidDd =>
+      const AssetGenImage('assets/images/android_dd.jpeg');
+
   /// File path: assets/images/avatar_person.png
   AssetGenImage get avatarPerson =>
       const AssetGenImage('assets/images/avatar_person.png');
@@ -33,6 +41,8 @@ class $AssetsImagesGen {
 
   /// List of all assets
   List<dynamic> get values => [
+        abstractWallpaperImage,
+        androidDd,
         avatarPerson,
         icGithub,
         icLinkedIn64x,
