@@ -81,9 +81,4 @@ class CarousalSlideWidget extends StatelessWidget {
 
     return Colors.cyanAccent;
   }
-
-  double limitBetween0And1(
-      ){
-
-  }
 }

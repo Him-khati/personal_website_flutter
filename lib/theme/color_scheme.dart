@@ -20,12 +20,12 @@ ColorScheme lightColors = const ColorScheme(
   error: Color(0xFFF3F3F3),
   onError: Colors.white,
   surface: Color(0xFFF3F3F3),
-  onSurface: Color(0xFF323232),
+  onSurface: Colors.black,
   onTertiary: Color(0xFFF3F3F3),
 
   //Container :Fill color for foreground elements like buttons. They should not be used for text or icons
   primaryContainer: Color(0xFFF3F3F3),
-  onPrimaryContainer: Colors.white,
+  onPrimaryContainer: Colors.black,
 );
 
 //

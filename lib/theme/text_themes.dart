@@ -21,7 +21,6 @@ extension TextThemeExtensions on BuildContext {
     BuildContext context,
     TextStyle textStyle,
   ) {
-    print("Theme Called");
     bool isLargeScreen = ScreenSizeUtil.isLargeScreen(context);
     bool isMediumScreen = ScreenSizeUtil.isMediumScreen(context);
     bool isSmallScreen = ScreenSizeUtil.isSmallScreen(context);

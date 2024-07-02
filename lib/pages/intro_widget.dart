@@ -54,7 +54,6 @@ class IntroWidget extends StatelessWidget {
                       height: 60,
                       child: ElevatedButton(
                         onPressed: () {
-                          print("object wrr");
                           launchUrl(Uri.parse(
                               "https://himanshu-khati.netlify.app/resume-himanshu.pdf"));
                         },

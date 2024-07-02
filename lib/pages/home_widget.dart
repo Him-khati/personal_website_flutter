@@ -94,7 +94,7 @@ class _HomeWidgetState extends State<HomeWidget>
           portfolioWidget,
           introWidget,
           aboutMeWidget,
-          workExperienceWidget,
+         // workExperienceWidget,
 
         ],
       ),
