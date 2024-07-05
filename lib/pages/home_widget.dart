@@ -7,6 +7,7 @@ import 'package:personal_website/pages/work_experience_widget.dart';
 import 'package:personal_website/theme/theme.dart';
 import 'package:personal_website/utils/response_widget.dart';
 import 'package:personal_website/widgets/scroll_indicator/scroll_indicator_widget.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HomeWidget extends StatefulWidget {
   const HomeWidget({super.key});
@@ -136,7 +137,10 @@ class _HomeWidgetState extends State<HomeWidget>
                 },),
               ),
               OutlinedButton(
-                onPressed: () {},
+                onPressed: () {
+                  launchUrl(Uri.parse(
+                      "https://himanshu-khati.netlify.app/Resume-Himanshu-Android-and-Flutter.pdf"));
+                },
                 child: const Text("Resume"),
               )
             ],

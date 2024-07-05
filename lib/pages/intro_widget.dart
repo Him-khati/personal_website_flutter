@@ -55,7 +55,7 @@ class IntroWidget extends StatelessWidget {
                       child: ElevatedButton(
                         onPressed: () {
                           launchUrl(Uri.parse(
-                              "https://himanshu-khati.netlify.app/resume-himanshu.pdf"));
+                              "https://himanshu-khati.netlify.app/Resume-Himanshu-Android-and-Flutter.pdf"));
                         },
                         child: const Text("View Resume"),
                       )),
@@ -86,7 +86,7 @@ class IntroWidget extends StatelessWidget {
                     iconSize: 10,
                     highlightColor: Colors.blueAccent,
                     onPressed: () {
-                      launchUrl(Uri.parse("https://github.com/Him-khati"));
+                      launchUrl(Uri.parse("https://www.linkedin.com/in/him-khati/"));
                     },
                   ),
 
