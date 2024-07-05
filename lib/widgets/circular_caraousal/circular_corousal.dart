@@ -1,19 +1,25 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_swipe_detector/flutter_swipe_detector.dart';
 import 'package:personal_website/colors.dart';
+import 'package:personal_website/extensions/list_extensions.dart';
 import 'package:personal_website/utils.dart';
 import 'package:personal_website/utils/screen_size_util.dart';
-import 'package:personal_website/widgets/circular_caraousal/caraousal_data.dart';
+import 'package:personal_website/widgets/circular_caraousal/caraousal_slide_placement_data.dart';
 
+import 'caraousal_slide_data.dart';
+import 'carousal_options.dart';
 import 'carousal_slide.dart';
 
 class CircularImageCarousalWidget extends StatefulWidget {
-  final List<Widget> images;
+  final List<CarouselSlideData> images;
+  final CarouselOptions? options;
 
   const CircularImageCarousalWidget({
     super.key,
     required this.images,
+    this.options
   });
 
   @override
@@ -23,18 +29,19 @@ class CircularImageCarousalWidget extends StatefulWidget {
 
 class _CircularImageCarousalWidgetState
     extends State<CircularImageCarousalWidget>
-    with SingleTickerProviderStateMixin {
-  ///By default when we
-
+    with TickerProviderStateMixin {
 
   // Carousal Data
-  List<CarouselData> carousalData = [];
+  List<CarouselSlidePlacementAndData> carousalData = [];
   double widgetSeparationAngleInRadian = 0;
   double angleRotatedSoFarFromInitialPosition = 0;
   double offsetAngle = 0;
 
-  late AnimationController _animationController;
-  late Animation<double> rotationAnimation;
+  late AnimationController _rotateCarousalAntiClockWiseAnimationController;
+  late AnimationController _rotateCarousalClockWiseAnimationController;
+
+  late Animation<double> rotateAntiClockWiseAnimation;
+  late Animation<double> rotateClockWiseAnimation;
 
   @override
   void initState() {
@@ -45,7 +52,7 @@ class _CircularImageCarousalWidgetState
     offsetAngle = -((pi / 2 ) - widgetSeparationAngleInRadian) ;
     widgetSeparationAngleInRadian = (2 * pi) / widget.images.length;
 
-    _animationController = AnimationController(
+    _rotateCarousalAntiClockWiseAnimationController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 1500),
     )
@@ -55,22 +62,64 @@ class _CircularImageCarousalWidgetState
       ..addStatusListener((state) {
         if (state == AnimationStatus.completed) {
           angleRotatedSoFarFromInitialPosition += widgetSeparationAngleInRadian;
-          _animationController.reset();
+          _rotateCarousalAntiClockWiseAnimationController.reset();
+
+          final slideInFront = carousalData.minValue((s){
+            return s.z;
+          });
+
+          if(slideInFront != null && widget.options?.onSlideChangeCallback != null) {
+            widget.options!.onSlideChangeCallback!(
+                slideInFront.data
+            );
+          }
         }
       });
 
-    rotationAnimation = Tween<double>(
+    _rotateCarousalClockWiseAnimationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 1500),
+    )
+      ..addListener(() {
+        setState(() {});
+      })
+      ..addStatusListener((state) {
+        if (state == AnimationStatus.completed) {
+          angleRotatedSoFarFromInitialPosition -= widgetSeparationAngleInRadian;
+          _rotateCarousalClockWiseAnimationController.reset();
+
+          final slideInFront = carousalData.minValue((s){
+            return s.z;
+          });
+
+         if(slideInFront != null && widget.options?.onSlideChangeCallback != null) {
+           widget.options!.onSlideChangeCallback!(
+               slideInFront.data
+           );
+         }
+        }
+      });
+
+    rotateAntiClockWiseAnimation = Tween<double>(
       begin: 0.0,
       end: 1.0,
     ).animate(CurvedAnimation(
-      parent: _animationController,
+      parent: _rotateCarousalAntiClockWiseAnimationController,
+      curve: Curves.fastOutSlowIn,
+    ));
+
+    rotateClockWiseAnimation = Tween<double>(
+      begin: 0.0,
+      end: 1.0,
+    ).animate(CurvedAnimation(
+      parent: _rotateCarousalClockWiseAnimationController,
       curve: Curves.fastOutSlowIn,
     ));
   }
 
   void _createCarousalFromProvidedWidgets() {
     carousalData = List.generate(widget.images.length, (index) {
-      return CarouselData(
+      return CarouselSlidePlacementAndData(
         index,
         widget.images[index]
       );
@@ -79,7 +128,7 @@ class _CircularImageCarousalWidgetState
 
   @override
   void dispose() {
-    _animationController.dispose();
+    _rotateCarousalAntiClockWiseAnimationController.dispose();
     super.dispose();
   }
 
@@ -99,7 +148,8 @@ class _CircularImageCarousalWidgetState
       final rotationAngle = cSlide.index * widgetSeparationAngleInRadian // Angle Calculated
           + angleRotatedSoFarFromInitialPosition //Angle Rotated So Far from Start
           + offsetAngle //By default Slides are laid from right side side of screen but we need card from Center of screen
-          + rotationAnimation.value * widgetSeparationAngleInRadian; // Animation Done in current cycle so far
+          + rotateAntiClockWiseAnimation.value * widgetSeparationAngleInRadian // Animation Done in current cycle so far
+          - rotateClockWiseAnimation.value * widgetSeparationAngleInRadian;
 
       final x = radius * cos(rotationAngle) * 3.5;
       final z = radius * sin(rotationAngle);
@@ -112,7 +162,7 @@ class _CircularImageCarousalWidgetState
       cSlide.maxZ = maxZ;
       cSlide.maxX = maxX;
 
-      print("Index : ${cSlide.index} x= $x ,z : $z maxX= $maxX, maxZ= $maxZ , opacity : ${roundToTwoDecimalPlaces(x)/maxX}");
+   //   print("Index : ${cSlide.index} x= $x ,z : $z maxX= $maxX, maxZ= $maxZ , opacity : ${roundToTwoDecimalPlaces(x)/maxX}");
 
       cSlide.greyScale = cSlide.angle % (pi / 2) != 0;
     }
@@ -132,9 +182,16 @@ class _CircularImageCarousalWidgetState
       );
     }).toList();
 
-    return GestureDetector(
-      onPanEnd: (e) {
-        _animationController.forward();
+    return SwipeDetector(
+
+      onSwipeLeft: (x){
+        print("Pan Clockwise");
+        _rotateCarousalClockWiseAnimationController.forward();
+      },
+
+      onSwipeRight: (x){
+        print("Pan Anticlockwise");
+        _rotateCarousalAntiClockWiseAnimationController.forward();
       },
       child: SizedBox(
         width: double.infinity,

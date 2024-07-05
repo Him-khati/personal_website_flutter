@@ -14,7 +14,7 @@ ColorScheme lightColors = const ColorScheme(
   onPrimary: Color(0xFF323232),
 
   //Background color for variant of primary elements ,like Raised button, toolbar
-  secondary: Color(0xFFF3F3F3),
+  secondary: Colors.teal,
   onSecondary: Color(0xFF323232),
 
   error: Color(0xFFF3F3F3),

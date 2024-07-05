@@ -22,7 +22,8 @@ class MyApp extends StatelessWidget {
       title: 'Himanshu Khati',
       scrollBehavior: AppScrollBehavior(),
       theme: context.lightTheme(context),
-      darkTheme: context.darkTheme(context),
+      darkTheme: context.lightTheme(context),
+      themeMode: ThemeMode.system,
       home: const HomeWidget(),
     );
   }

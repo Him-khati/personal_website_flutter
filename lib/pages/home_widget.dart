@@ -91,7 +91,6 @@ class _HomeWidgetState extends State<HomeWidget>
         controller: _pageController,
         scrollDirection: Axis.vertical,
         children: [
-          portfolioWidget,
           introWidget,
           aboutMeWidget,
          // workExperienceWidget,
